@@ -3,13 +3,13 @@ import { Book } from "./objects";
 
 // don't change this interface
 interface Review {
-  reviewer: string;
-  comment: string;
+	reviewer: string;
+	comment: string;
 }
 
 // don't change this interface
 interface ReviewedBook extends Book {
-  reviews?: Review[];
+	reviews?: Review[];
 }
 
 /**
@@ -33,14 +33,22 @@ interface ReviewedBook extends Book {
  *  //        reviews: [{ reviewer: "Alice", comment: "A thought-provoking novel!" }]
  *  //      }
  */
-function addReview(
-  book: ReviewedBook,
-  reviewer: string,
-  comment: string
-): ReviewedBook {
-  // write your code here...
+let a2rr: { reviewer: string }[] = [];
+let arr: { comments: string }[] = [];
 
-  return book;
+function addReview(book: ReviewedBook, reviewer: string, comment: string): ReviewedBook {
+	// write your code here...
+
+	book.reviews = Array.isArray(book.reviews) ? [...book.reviews, { reviewer, comment }] : [{ reviewer, comment }];
+	//  spread operators to fetch previous/existing values of the array to append additional values or original || Array.isArray
+
+	return book;
 }
+
+// book.reviews = [{ reviewer: "", comment: "" }];
+addReview({ title: "1984", author: "George Orwell", publishedYear: 1949, genre: "Dystopian" }, "Daniel Kwan", "Daniel Scheinert");
+// book.reviews = Array.isArray(book.reviews) ? [...book.reviews, [reviewer, comment]] : book.reviews, [reviewer, comment];
+
+// addReview(myook, "Alice", "A thought-provoking novel!");
 
 export { addReview, Review, ReviewedBook };

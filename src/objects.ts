@@ -1,11 +1,11 @@
 // don't change this interface
 interface Book {
-  title: string;
-  author: string | string[];
-  publishedYear: number;
-  genre: string;
-  pageCount?: number;
-  ISBN?: string;
+	title: string;
+	author: string | string[];
+	publishedYear: number;
+	genre: string;
+	pageCount?: number;
+	ISBN?: string;
 }
 
 /**
@@ -20,24 +20,19 @@ interface Book {
  *  createBook("JavaScript: The Definitive Guide", "David Flanagan", 2020, "Programming");
  *   // => { title: "JavaScript: The Definitive Guide", author: "David Flanagan", publishedYear: 2020, genre: "Programming" }
  */
-function createBook(
-  title: string,
-  author: string,
-  publishedYear: number,
-  genre: string
-): Book {
-  // write your code here...
-
-  return {} as Book; // replace "{} as Book" with what you see is fit
+function createBook(title: string, author: string, publishedYear: number, genre: string): Book {
+	// write your code here...
+	const book: Book = {
+		title,
+		author,
+		publishedYear,
+		genre,
+	};
+	return book as Book; // replace "{} as Book" with what you see is fit
 }
 
 // DO NOT CHANGE THE LINE OF CODE BELOW (you can use it for testing your code)
-const book = createBook(
-  "Hitchhiker's Guide to The Galaxy",
-  "Douglas Adams",
-  1965,
-  "Sci-Fi"
-);
+const book = createBook("Hitchhiker's Guide to The Galaxy", "Douglas Adams", 1965, "Sci-Fi");
 
 /**
  * `printBookTitleAndYear` function:
@@ -49,9 +44,9 @@ const book = createBook(
  *   // => "Hitchhiker's Guide to The Galaxy 1965"
  */
 function printBookTitleAndYear(book: Book): string {
-  // write your code here...
-
-  return ""; // replace empty string with what you see is fit
+	// write your code here...
+	let bookTitleAndYear = `${book.title} ${book["publishedYear"]}`;
+	return bookTitleAndYear; // replace empty string with what you see is fit
 }
 
 /**
@@ -65,11 +60,12 @@ function printBookTitleAndYear(book: Book): string {
  *   // => { title: "Hitchhiker's Guide to The Galaxy", author: "Douglas Adams", publishedYear: 1965, genre: "Sci-Fi", pageCount: 320 }
  */
 function addPageCount(book: Book, pageCount: number): Book {
-  // write your code here...
-
-  return book;
+	// write your code here.
+	book.pageCount = pageCount;
+	return book;
 }
 
+addPageCount(book, 320);
 /**
  * `addISBN` function:
  * - Accepts:
@@ -87,10 +83,13 @@ function addPageCount(book: Book, pageCount: number): Book {
  *   //    }
  */
 function addISBN(book: Book, ISBN: string): Book {
-  // write your code here...
+	// write your code here...
 
-  return book;
+	book.ISBN = ISBN;
+
+	return book;
 }
+addISBN(book, "978-3-16-148410-0");
 
 /**
  * `updatePublishedYear` function:
@@ -109,10 +108,13 @@ function addISBN(book: Book, ISBN: string): Book {
  *   //    }
  */
 function updatePublishedYear(book: Book, newYear: number): Book {
-  // write your code here...
+	// write your code here...
 
-  return book;
+	book.publishedYear = newYear;
+
+	return book;
 }
+updatePublishedYear(book, 2020);
 
 /**
  * `addSecondAuthor` function:
@@ -134,17 +136,13 @@ function updatePublishedYear(book: Book, newYear: number): Book {
  *   //    }
  */
 function addSecondAuthor(book: Book, additionalAuthor: string): Book {
-  // write your code here...
+	// write your code here...
+	book.author = Array.isArray(book.author) ? [...book.author, additionalAuthor] : [book.author, additionalAuthor];
+	//  spread operators to fetch previous/existing values of the array to append additional values or original
+	// Array.isArray
 
-  return book;
+	return book;
 }
+addSecondAuthor(book, "John Doe");
 
-export {
-  createBook,
-  printBookTitleAndYear,
-  addPageCount,
-  addISBN,
-  updatePublishedYear,
-  addSecondAuthor,
-  Book,
-};
+export { createBook, printBookTitleAndYear, addPageCount, addISBN, updatePublishedYear, addSecondAuthor, Book };
